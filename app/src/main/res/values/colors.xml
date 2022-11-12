@@ -11,5 +11,8 @@
     <color name="colorWhite">#FFFFFFFF</color>
     <color name="colorPrimaryDark">#FF000000</color>
     <color name="colorPrimary">#FF6200EE</color>
+    <color name="Pale">#FFFFFFCC</color>
+    <color name="orange">#FFFF6600</color>
+    <color name="pastel">#FFCCFFFF</color>
 
 </resources>

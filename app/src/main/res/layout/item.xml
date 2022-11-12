@@ -3,27 +3,29 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/colorPrimaryDark">
+    android:background="@color/pastel">
 
     <TextView
         android:id="@+id/input_text"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="40sp"
-        android:textColor="@color/colorWhite"
+        android:textSize="50sp"
+        android:gravity="end"
+        android:fontFamily="@font/g_light"
+        android:textColor="@color/black"
         android:padding="10dp"
-        android:layout_gravity="end"
-        />
-
+        android:text=""/>
     <TextView
         android:id="@+id/output_text"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="60sp"
-        android:textColor="@color/colorWhite"
+        android:textSize="75sp"
+        android:gravity="end"
+        android:fontFamily="@font/g_light"
+        android:textStyle="bold"
+        android:textColor="@color/black"
         android:padding="10dp"
-        android:layout_gravity="end"
-        />
+        android:text=""/>
 
 
 

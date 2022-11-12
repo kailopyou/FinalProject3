@@ -1,28 +1,29 @@
 package com.hactiv8.finalproject3;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AppCompatActivity;
+
+import org.mozilla.javascript.Context;
+import org.mozilla.javascript.Scriptable;
+
 public class MainActivity extends AppCompatActivity {
 
+
     TextView inputText, outputText;
+    String process;
+    boolean checkBracket = false;
 
-    private String input, output, newOutput;
-
-    public Button button0, button1, button2, button3, button4, button5, button6, button7,
-            button8, button9, buttonAdd, buttonMultiply, buttonSubs, buttonDivision, buttonPoint, buttonPercent, buttonEqual, buttonClear;
+    Button button0, button1, button2, button3, button4, button5, button6, button7,
+            button8, button9, buttonAdd, buttonMultiply, buttonSubs, buttonDivision, buttonPoint, buttonPercent, buttonEqual, buttonClear, btnBracket, btnDel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        inputText = findViewById(R.id.input_text);
-        outputText = findViewById(R.id.output_text);
 
         button0 = findViewById(R.id.btn0);
         button1 = findViewById(R.id.btn1);
@@ -34,134 +35,205 @@ public class MainActivity extends AppCompatActivity {
         button7 = findViewById(R.id.btn7);
         button8 = findViewById(R.id.btn8);
         button9 = findViewById(R.id.btn9);
-        buttonAdd = findViewById(R.id.addition_btn);
-        buttonMultiply = findViewById(R.id.multiply_btn);
-        buttonDivision = findViewById(R.id.division_btn);
-        buttonSubs = findViewById(R.id.substraction_btn);
-        buttonPoint = findViewById(R.id.btnpoint);
-        buttonEqual = findViewById(R.id.equal_btn);
-        buttonPercent = findViewById(R.id.percent_btn);
+        buttonAdd = findViewById(R.id.addition_btn); //plus
+        buttonMultiply = findViewById(R.id.multiply_btn); //kali
+        buttonDivision = findViewById(R.id.division_btn); //bagi
+        buttonSubs = findViewById(R.id.substraction_btn); //min
+        buttonPoint = findViewById(R.id.btnpoint); //koma
+        buttonEqual = findViewById(R.id.equal_btn); //=
+        buttonPercent = findViewById(R.id.percent_btn); //persen
         buttonClear = findViewById(R.id.clear_btn);
+        btnBracket = findViewById(R.id.btnBracket);
+        btnDel = findViewById(R.id.btndel);
 
-    }
+        inputText = findViewById(R.id.input_text);
+        outputText = findViewById(R.id.output_text);
 
-    public void onButtonClicked(View view) {
-
-        Button button = (Button) view;
-        String data = button.getText().toString();
-        switch (data) {
-            case "DEL":
-                input = null;
-                output=null;
-                newOutput=null;
+        buttonClear.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                inputText.setText("");
                 outputText.setText("");
-                break;
+            }
+        });
 
-            case "x":
-                solve();
-                input += "*";
-                break;
 
-            case "ANSWER":
-                solve();
-                break;
+        button0.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                process = inputText.getText().toString();
+                inputText.setText(process + "0");
+            }
+        });
 
-            case "%":
-                input += "%";
-                double d = Double.parseDouble(inputText.getText().toString()) / 100;
-                outputText.setText(String.valueOf(d));
-                break;
+        button1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                process = inputText.getText().toString();
+                inputText.setText(process + "1");
+            }
+        });
 
-            default:
-                if (input == null) {
-                    input = "";
+        button2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                process = inputText.getText().toString();
+                inputText.setText(process + "2");
+            }
+        });
+
+        button3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                process = inputText.getText().toString();
+                inputText.setText(process + "3");
+            }
+        });
+
+        button4.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                process = inputText.getText().toString();
+                inputText.setText(process + "4");
+            }
+        });
+
+        button5.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                process = inputText.getText().toString();
+                inputText.setText(process + "5");
+            }
+        });
+
+        button6.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                process = inputText.getText().toString();
+                inputText.setText(process + "6");
+            }
+        });
+
+        button7.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                process = inputText.getText().toString();
+                inputText.setText(process + "7");
+            }
+        });
+
+        button8.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                process = inputText.getText().toString();
+                inputText.setText(process + "8");
+            }
+        });
+
+        button9.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                process = inputText.getText().toString();
+                inputText.setText(process + "9");
+            }
+        });
+
+        buttonAdd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                process = inputText.getText().toString();
+                inputText.setText(process + "+");
+            }
+        });
+
+        buttonSubs.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                process = inputText.getText().toString();
+                inputText.setText(process + "-");
+            }
+        });
+
+        buttonMultiply.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                process = inputText.getText().toString();
+                inputText.setText(process + "×");
+            }
+        });
+
+        buttonDivision.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                process = inputText.getText().toString();
+                inputText.setText(process + "÷");
+            }
+        });
+
+        buttonPoint.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                process = inputText.getText().toString();
+                inputText.setText(process + ".");
+            }
+        });
+
+        buttonPercent.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                process = inputText.getText().toString();
+                inputText.setText(process + "%");
+            }
+        });
+
+        btnBracket.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                if (checkBracket){
+                    process = inputText.getText().toString();
+                    inputText.setText(process + ")");
+                    checkBracket = false;
+                }else{
+                    process = inputText.getText().toString();
+                    inputText.setText(process + "(");
+                    checkBracket = true;
                 }
-                if (data.equals("+") || data.equals("/") || data.equals("-")) {
-                    solve();
-                }
-                input += data;
-        }
-        inputText.setText(input);
-    }
 
-    private void solve() {
-        if (input.split("\\+").length == 2) {
-            String numbers[] = input.split("\\+");
-            try {
-                double d = Double.parseDouble(numbers[0]) + Double.parseDouble(numbers[1]);
-                output = Double.toString(d);
-                newOutput = cutDecimal(output);
-                outputText.setText(newOutput);
-                input = d +"";
-            }catch (Exception e) {
-                outputText.setText(e.getMessage().toString());
             }
-        }
-        if (input.split("\\*").length == 2) {
-            String numbers[] = input.split("\\*");
-            try {
-                double d = Double.parseDouble(numbers[0]) * Double.parseDouble(numbers[1]);
-                output = Double.toString(d);
-                newOutput = cutDecimal(output);
-                outputText.setText(newOutput);
-                input = d +"";
-            }catch (Exception e){
-                outputText.setText(e.getMessage().toString());
+        });
+
+        btnDel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String val = inputText.getText().toString();
+                val = val.substring(0, val.length() - 1);
+                inputText.setText(val);
             }
-        }
-        if (input.split("\\/").length == 2) {
-            String numbers[] = input.split("\\/");
-            try {
-                double d = Double.parseDouble(numbers[0]) / Double.parseDouble(numbers[1]);
-                output = Double.toString(d);
-                newOutput = cutDecimal(output);
-                outputText.setText(newOutput);
-                input = d +"";
-            }catch (Exception e){
-                outputText.setText(e.getMessage().toString());
-            }
-        }
-        if (input.split("\\^").length == 2) {
-            String numbers[] = input.split("\\^");
-            try {
-                double d = Math.pow(Double.parseDouble(numbers[0]), Double.parseDouble(numbers[1]));
-                output = Double.toString(d);
-                newOutput = cutDecimal(output);
-                outputText.setText(newOutput);
-                input = d +"";
-            }catch (Exception e){
-                outputText.setText(e.getMessage().toString());
-            }
-        }
-        if (input.split("\\-").length == 2) {
-            String numbers[] = input.split("\\-");
-            try {
-                if (Double.parseDouble(numbers[0]) < Double.parseDouble(numbers[1])){
-                    double d = Double.parseDouble(numbers[1]) - Double.parseDouble(numbers[0]);
-                    output = Double.toString(d);
-                    newOutput = cutDecimal(output);
-                    outputText.setText("-" + newOutput);
-                    input = d +"";
+        });
+
+        buttonEqual.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                process = inputText.getText().toString();
+                process = process.replaceAll("×","*");
+                process = process.replaceAll("%","/100");
+                process = process.replaceAll("÷","/");
+
+                Context rhino = Context.enter();
+                rhino.setOptimizationLevel(-1);
+
+                String finalResult = "";
+
+                try {
+                    Scriptable scriptable = rhino.initStandardObjects();
+                    finalResult = rhino.evaluateString(scriptable,process,"javascript",1,null).toString();
+                }catch (Exception e){
+                    finalResult="Error";
                 }
-                else {
-                    double d = Double.parseDouble(numbers[0]) - Double.parseDouble(numbers[1]);
-                    output = Double.toString(d);
-                    newOutput = cutDecimal(output);
-                    outputText.setText(newOutput);
-                    input = d + "";
-                }
-            }catch (Exception e){
-                outputText.setText(e.getMessage().toString());
+
+                outputText.setText(finalResult);
             }
-        }
-    }
-    private String cutDecimal(String number){
-        String n [] = number.split("\\.");
-        if (n.length >1){
-            if (n[1].equals("0")){
-                number = n[0];
-            }
-        }
-        return number;
+        });
     }
 }
